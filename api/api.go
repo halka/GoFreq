@@ -56,23 +56,30 @@ func (handler *Handler) Logout(c *gin.Context) {
 // AddFreq 周波数情報を追加する
 func (handler *Handler) AddFreq(c *gin.Context) {
 	var freq model.Freq
+	c.Bind(&freq)
+	handler.Db.Create(&freq)
 	c.BindJSON(&freq)
 }
 
 // FreqList 周波数情報をすべて取得する
 func (handler *Handler) FreqList(c *gin.Context) {
-	var freq model.Freq
+	var freq []model.Freq
+	handler.Db.Find(&freq)
 	c.BindJSON(&freq)
 }
 
 // FreqDetail 個別の周波数情報を取得する
 func (handler *Handler) FreqDetail(c *gin.Context) {
 	var freq model.Freq
+	var id = c.Param("id")
+	handler.Db.Where("id = ?", id).First(&freq)
 	c.BindJSON(&freq)
 }
 
 // FreqDelete 周波数情報を削除する
 func (handler *Handler) FreqDelete(c *gin.Context) {
 	var freq model.Freq
+	var id = c.Param("id")
+	handler.Db.Where("id = ?", id).Delete(&freq)
 	c.BindJSON(&freq)
 }
