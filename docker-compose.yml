@@ -1,0 +1,15 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12
+    # 任意のパスワード
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0taru
+      POSTGRES_DB: freq
+    # ホスト側は任意のディレクトリ
+    volumes:
+      - ./pgsql-data:/var/lib/postgresql/data
+    # ホスト側は任意のポート
+    ports:
+      - 5432:5432
